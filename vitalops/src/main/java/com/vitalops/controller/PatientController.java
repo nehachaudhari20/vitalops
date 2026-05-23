@@ -1,5 +1,8 @@
 package com.vitalops.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import com.vitalops.service.MonitoringService;
 import com.vitalops.entity.Patient;
 import com.vitalops.service.TriageService;
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/patients")
+@Tag(name = "Patient APIs", description = "Emergency patient triage operations")
 
 public class PatientController {
 
@@ -21,6 +25,7 @@ public class PatientController {
     }
 
     // Add emergency patient
+    @Operation(summary = "Add emergency patient to triage queue")
     @PostMapping
     public String admitPatient(@RequestBody Patient patient) {
 
@@ -34,6 +39,7 @@ public class PatientController {
     }
 
     // Fetch next critical patient
+    @Operation(summary = "Fetch highest priority critical patient")
     @GetMapping("/critical")
     public Patient getCriticalPatient() {
 
@@ -41,6 +47,7 @@ public class PatientController {
     }
 
     // Queue size
+    @Operation(summary = "Get current emergency queue size")
     @GetMapping("/queue-size")
     public int queueSize() {
 
