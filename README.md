@@ -84,13 +84,34 @@ VitalOps solves this problem by providing a backend-driven operational intellige
 # Architecture
 
 ```text
-Controller Layer
-↓
-Service Layer
-↓
-Repository Layer
-↓
-PostgreSQL Database
+                +----------------+
+                |    Postman     |
+                +-------+--------+
+                        |
+                        v
+              +------------------+
+              |   REST APIs      |
+              | (Controllers)    |
+              +--------+---------+
+                       |
+                       v
+              +------------------+
+              | Business Logic   |
+              |   (Services)     |
+              +--------+---------+
+                       |
+                       v
+              +------------------+
+              |  Repositories    |
+              |   Spring Data    |
+              +--------+---------+
+                       |
+                       v
+              +------------------+
+              |   PostgreSQL     |
+              +------------------+
+
+       Priority Queue + Monitoring Engine
 ```
 
 ---
@@ -225,7 +246,15 @@ http://localhost:8080/swagger-ui/index.html
 ```
 
 ---
+## Design Decisions
 
+- Layered architecture for maintainability.
+- PriorityQueue used for emergency patient scheduling.
+- Repository pattern implemented through Spring Data JPA.
+- PostgreSQL used for transactional persistence.
+- Sliding window monitoring for overload detection.
+
+---
 # Future Enhancements
 
 - Redis-based queue caching
